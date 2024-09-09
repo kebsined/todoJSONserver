@@ -22,6 +22,8 @@ export const App = () => {
 
 	const updateTaskFlag = () => setUpdateTodos(!updateTodos);
 
+	const sortParams = { byName: '?_sort=name', default: '' };
+
 	const searchTodo = todos.filter(todo =>
 		todo.name.toLowerCase().includes(searchQuery.toLowerCase())
 	);
@@ -86,27 +88,19 @@ export const App = () => {
 	const toSortTodos = () => {
 		setIsSorted(!isSorted);
 		setIsLoading(true);
-		if (isSorted === false) {
-			setTimeout(() => {
-				fetch('http://localhost:3005/todos?_sort=name')
-					.then(loadedData => loadedData.json())
-					.then(loadedTodos => {
-						setTodos(loadedTodos);
-					})
-					.finally(() => {
-						setIsLoading(false);
-					});
-			}, 1500);
-		} else {
-			setTimeout(() => {
-				fetch('http://localhost:3005/todos')
-					.then(loadedData => loadedData.json())
-					.then(loadedTodos => {
-						setTodos(loadedTodos);
-					})
-					.finally(() => setIsLoading(false));
-			}, 1500);
-		}
+		setTimeout(() => {
+			fetch(
+				'http://localhost:3005/todos' +
+					`${!isSorted ? sortParams.byName : sortParams.default}`
+			)
+				.then(loadedData => loadedData.json())
+				.then(loadedTodos => {
+					setTodos(loadedTodos);
+				})
+				.finally(() => {
+					setIsLoading(false);
+				});
+		}, 1500);
 	};
 
 	return (
@@ -156,8 +150,8 @@ export const App = () => {
 							<Task
 								key={id}
 								name={name}
-								callEditWindow={callEditWindow}
-								onDeleteTask={onDeleteTask}
+								callEditWindow={() => callEditWindow(id)}
+								onDeleteTask={() => onDeleteTask(id)}
 							/>
 						))
 					)}
