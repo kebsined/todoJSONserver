@@ -1,0 +1,20 @@
+.TaskList {
+	margin-top: 20px;
+	width: 32rem;
+	height: 15rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.TaskList::-webkit-scrollbar {
+	background-color: transparent;
+	width: 10px;
+}
+.TaskList::-webkit-scrollbar-thumb {
+	background-color: #ffffff78;
+	border-radius: 5px;
+	border: 0.5px solid #ffffff3d;
+}

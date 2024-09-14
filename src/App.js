@@ -2,12 +2,13 @@ import styles from './App.module.css';
 
 import { useState, useEffect } from 'react';
 import { AddForm } from './components/AddForm/AddForm';
-import { Input } from './components/Input/Input';
 import { useUpdateTodo } from './hooks/useUpdate/useUpdateTodo';
 import { useDeleteTodo } from './hooks/useDelete/useDeleteTodo';
 import { useAddTodo } from './hooks/useAddTodo/useAddTodo';
 import { ModalWindow } from './components/modalWindow/modalWindow';
-import { Task } from './components/task/Task';
+import { TodoList } from './components/todoList/TodoList';
+import { TaskList } from './components/taskList/TaskList';
+import { SearchSort } from './components/SearchSort/SearchSort';
 
 export const App = () => {
 	const [todos, setTodos] = useState([]);
@@ -105,18 +106,15 @@ export const App = () => {
 
 	return (
 		<div className={styles.App}>
-			{isEditing ? (
+			{isEditing && (
 				<ModalWindow
 					onUpdateTodo={onUpdateTodo}
 					closeEditWindow={closeEditWindow}
 					updatedTaskName={updatedTaskName}
 					onUpdatedTodoNameChange={onUpdatedTodoNameChange}
 				/>
-			) : (
-				<div></div>
 			)}
-			<div className={styles.TodoList}>
-				<h1 className={styles.title}>Track your tasks</h1>
+			<TodoList>
 				<AddForm
 					onAddTodo={onAddTodo}
 					onTodoNameChange={onTodoNameChange}
@@ -125,38 +123,20 @@ export const App = () => {
 					isDeleting={isDeleting}
 					isUpdating={isUpdating}
 				/>
-				<Input
-					id='search'
-					className={styles.searchInput}
-					placeholder={'Search...'}
-					value={searchQuery}
-					onChange={event => setSearchQuery(event.target.value)}
-					type='text'
+				<SearchSort
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					isLoading={isLoading}
+					isSorted={isSorted}
+					toSortTodos={toSortTodos}
 				/>
-				<button
-					className={styles.sort}
-					type='submit'
-					onClick={toSortTodos}
-					disabled={isLoading}
-					id='sort'
-				>
-					{isSorted === false ? 'Sort todos' : 'Show default'}
-				</button>
-				<div className={styles.tasks}>
-					{isLoading ? (
-						<div className={styles.loader}></div>
-					) : (
-						searchTodo.map(({ name, id }) => (
-							<Task
-								key={id}
-								name={name}
-								callEditWindow={() => callEditWindow(id)}
-								onDeleteTask={() => onDeleteTask(id)}
-							/>
-						))
-					)}
-				</div>
-			</div>
+				<TaskList
+					isLoading={isLoading}
+					searchTodo={searchTodo}
+					callEditWindow={callEditWindow}
+					onDeleteTask={onDeleteTask}
+				/>
+			</TodoList>
 		</div>
 	);
 };
