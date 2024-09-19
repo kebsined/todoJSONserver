@@ -9,21 +9,21 @@ export const SearchSort = ({
 	toSortTodos,
 }) => {
 	return (
-		<div>
+		<div className={styles.SearchSort}>
 			<Input
-				id='search'
+				id="search"
 				className={styles.searchInput}
 				placeholder={'Search...'}
 				value={searchQuery}
-				onChange={event => setSearchQuery(event.target.value)}
-				type='text'
+				onChange={(event) => setSearchQuery(event.target.value)}
+				type="text"
 			/>
 			<button
 				className={styles.sort}
-				type='submit'
+				type="submit"
 				onClick={toSortTodos}
 				disabled={isLoading}
-				id='sort'
+				id="sort"
 			>
 				{isSorted === false ? 'Sort todos' : 'Show default'}
 			</button>

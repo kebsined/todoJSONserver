@@ -12,8 +12,8 @@
 .App {
 	text-align: center;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: center;
 	width: 100vw;
 	height: 100vh;
 	background-image: url(../public/background3.jpg);
@@ -21,4 +21,62 @@
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	overflow: hidden;
+}
+
+.Title {
+	color: #fff;
+	text-shadow: 3px 3px 3px #000;
+	font-family: 'Great vibes';
+	font-size: 60px;
+	letter-spacing: 3px;
+	word-spacing: 10px;
+}
+
+.Todo {
+	display: inline-block;
+	margin-top: 5px;
+	width: 25rem;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 0 1rem;
+	line-height: 2;
+	font-weight: 600;
+	text-shadow: 3px 3px 3px #000000;
+	font-style: oblique;
+	background-color: #ffffff49;
+	border-radius: 20px;
+	list-style: none;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.TodoList {
+	padding: 0;
+	margin: 20px auto;
+	width: 32rem;
+	height: 25rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.TodoList::-webkit-scrollbar {
+	background-color: transparent;
+	width: 10px;
+}
+.TodoList::-webkit-scrollbar-thumb {
+	background-color: #ffffff78;
+	border-radius: 5px;
+	border: 0.5px solid #ffffff3d;
+}
+
+.Link {
+	text-decoration: none;
+}
+
+.Todo:hover {
+	color: rgb(241, 217, 155);
 }
